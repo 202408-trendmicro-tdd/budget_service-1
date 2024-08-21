@@ -23,7 +23,7 @@ class BudgetService {
       if (budget !== undefined) {
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
-          totalAmount += startMonthDaysUsed * budget.amount / budget.getDays();
+          totalAmount += startMonthDaysUsed * this.dailyAmount(budget);
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
           let endMonthDaysUsed = endDate.date();
           totalAmount += endMonthDaysUsed * budget.amount / budget.getDays();
@@ -38,6 +38,9 @@ class BudgetService {
     return totalAmount;
   }
 
+  dailyAmount(budget) {
+    return budget.amount / budget.getDays();
+  }
 }
 
 class Budget {
