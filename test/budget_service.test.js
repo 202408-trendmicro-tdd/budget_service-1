@@ -24,13 +24,10 @@ class BudgetService {
         let overlappingDays;
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           overlappingDays = currentMonth.daysInMonth() - startDate.date() + 1;
-          // totalAmount += overlappingDays * budget.dailyAmount();
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
           overlappingDays = endDate.date();
-          // totalAmount += overlappingDays * budget.dailyAmount();
         } else {
           overlappingDays = budget.getDays();
-          // totalAmount += overlappingDays * budget.dailyAmount();
         }
         totalAmount += overlappingDays * budget.dailyAmount();
       }
