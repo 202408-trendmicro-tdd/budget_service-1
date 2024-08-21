@@ -13,7 +13,8 @@ class BudgetService {
     let currentMonth = startDate.startOf('month');
 
     while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
-      let amountOfBudget = BudgetRepo.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'))?.amount || 0;
+      let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
+      let amountOfBudget = budget?.amount || 0;
 
       if (amountOfBudget === undefined) {
         throw new Error(`Budget not found for the month: ${currentMonth.format('YYYYMM')}`);
@@ -47,7 +48,7 @@ class Budget {
   }
 }
 
-const BudgetRepo = [
+const budgets = [
   new Budget('202312', 310),
   new Budget('202402', 2900),
   new Budget('202406', 30000000),
