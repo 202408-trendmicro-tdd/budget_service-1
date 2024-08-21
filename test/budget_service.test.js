@@ -11,8 +11,8 @@ class Period {
 
   overlappingDays(budget) {
     const another = new Period(budget.firstDay(), budget.lastDay());
-    let lastDay = budget.lastDay();
-    let firstDay = budget.firstDay();
+    let lastDay = another.endDate;
+    let firstDay = another.startDate;
     let overlappingEnd = this.endDate.isBefore(lastDay) ? this.endDate : lastDay;
     let overlappingStart = this.startDate.isAfter(firstDay) ? this.startDate : firstDay;
     return overlappingEnd.diff(overlappingStart, 'day') + 1;
