@@ -28,7 +28,9 @@ class BudgetService {
           let overlappingDays = endDate.date();
           totalAmount += overlappingDays * budget.dailyAmount();
         } else {
-          totalAmount += budget.amount;
+          let overlappingDays = budget.getDays();
+          totalAmount += overlappingDays * budget.dailyAmount();
+          // totalAmount += budget.amount;
         }
       }
 
