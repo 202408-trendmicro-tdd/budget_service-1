@@ -23,11 +23,12 @@ class BudgetService {
       if (budget !== undefined) {
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
-          totalAmount += (startMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
+          let daysOfBudget = currentMonth.daysInMonth();
+          totalAmount += startMonthDaysUsed * budget.amount / daysOfBudget;
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
-          // } else if (currentMonth.isSame(endDate, 'month')) {
           let endMonthDaysUsed = endDate.date();
-          totalAmount += (endMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
+          let daysOfBudget = currentMonth.daysInMonth();
+          totalAmount += endMonthDaysUsed * budget.amount / daysOfBudget;
         } else {
           totalAmount += budget.amount;
         }
