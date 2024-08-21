@@ -24,7 +24,8 @@ class BudgetService {
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
           totalAmount += (startMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
-        } else if (currentMonth.isSame(endDate, 'month')) {
+        } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
+          // } else if (currentMonth.isSame(endDate, 'month')) {
           let endMonthDaysUsed = endDate.date();
           totalAmount += (endMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
         } else {
