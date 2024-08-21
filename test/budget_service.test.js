@@ -48,11 +48,15 @@ class Budget {
   }
 
   getDays() {
-    return dayjs(this.yearMonth, 'YYYYMM').daysInMonth();
+    return this.getYearMonth().daysInMonth();
   }
 
   lastDay() {
-    return dayjs(this.yearMonth, 'YYYYMM').endOf('month');
+    return this.getYearMonth().endOf('month');
+  }
+
+  getYearMonth() {
+    return dayjs(this.yearMonth, 'YYYYMM');
   }
 
   dailyAmount() {
