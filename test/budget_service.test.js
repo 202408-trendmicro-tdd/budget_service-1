@@ -13,24 +13,24 @@ class BudgetService {
     let currentMonth = startDate.startOf('month');
 
     while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
-      let budget = BudgetRepo.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'))?.amount || 0;
+      let amountOfBudget = BudgetRepo.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'))?.amount || 0;
 
-      if (budget === undefined) {
+      if (amountOfBudget === undefined) {
         throw new Error(`Budget not found for the month: ${currentMonth.format('YYYYMM')}`);
       }
 
       if (currentMonth.isSame(startDate, 'month') && currentMonth.isSame(endDate, 'month')) {
         let day_diff = endDate.diff(startDate, 'day') + 1;
         let days_in_month = currentMonth.daysInMonth();
-        totalAmount += (day_diff * budget) / days_in_month;
+        totalAmount += (day_diff * amountOfBudget) / days_in_month;
       } else if (currentMonth.isSame(startDate, 'month')) {
         let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
-        totalAmount += (startMonthDaysUsed * budget) / currentMonth.daysInMonth();
+        totalAmount += (startMonthDaysUsed * amountOfBudget) / currentMonth.daysInMonth();
       } else if (currentMonth.isSame(endDate, 'month')) {
         let endMonthDaysUsed = endDate.date();
-        totalAmount += (endMonthDaysUsed * budget) / currentMonth.daysInMonth();
+        totalAmount += (endMonthDaysUsed * amountOfBudget) / currentMonth.daysInMonth();
       } else {
-        totalAmount += budget;
+        totalAmount += amountOfBudget;
       }
 
       currentMonth = currentMonth.add(1, 'month');
