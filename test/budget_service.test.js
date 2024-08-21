@@ -10,6 +10,9 @@ class Period {
   }
 
   overlappingDays(another) {
+    if (this.endDate.isBefore(another.startDate) || this.startDate.isAfter(another.endDate)) {
+      return 0;
+    }
     let overlappingEnd = this.endDate.isBefore(another.endDate) ? this.endDate : another.endDate;
     let overlappingStart = this.startDate.isAfter(another.startDate) ? this.startDate : another.startDate;
     return overlappingEnd.diff(overlappingStart, 'day') + 1;
@@ -35,17 +38,21 @@ class BudgetService {
       return (day_diff * budget.amount) / days_in_month;
     }
     const period = new Period(startDate, endDate);
-    while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
-      let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
-
-      if (budget !== undefined) {
-        totalAmount += budget.overlappingAmount(period);
-      }
-
-      currentMonth = currentMonth.add(1, 'month');
+    for (let budget of budgets) {
+      totalAmount += budget.overlappingAmount(period);
     }
-
     return totalAmount;
+    // while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
+    //   let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
+    //
+    //   if (budget !== undefined) {
+    //     totalAmount += budget.overlappingAmount(period);
+    //   }
+    //
+    //   currentMonth = currentMonth.add(1, 'month');
+    // }
+    //
+    // return totalAmount;
   }
 
 }
