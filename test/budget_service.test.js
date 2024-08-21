@@ -11,17 +11,17 @@ class BudgetService {
     }
 
     let currentMonth = startDate.startOf('month');
-
+    if (startDate.format('YYYYMM') === endDate.format('YYYYMM')) {
+      let day_diff = endDate.diff(startDate, 'day') + 1;
+      let days_in_month = currentMonth.daysInMonth();
+      let budget = budgets.find(budget => budget.yearMonth === startDate.format('YYYYMM'));
+      return (day_diff * budget.amount) / days_in_month;
+    }
     while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
       let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
 
       if (budget !== undefined) {
-        if (startDate.format('YYYYMM') === endDate.format('YYYYMM')) {
-          // if (currentMonth.isSame(startDate, 'month') && currentMonth.isSame(endDate, 'month')) {
-          let day_diff = endDate.diff(startDate, 'day') + 1;
-          let days_in_month = currentMonth.daysInMonth();
-          totalAmount += (day_diff * budget.amount) / days_in_month;
-        } else if (currentMonth.isSame(startDate, 'month')) {
+        if (currentMonth.isSame(startDate, 'month')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
           totalAmount += (startMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
         } else if (currentMonth.isSame(endDate, 'month')) {
