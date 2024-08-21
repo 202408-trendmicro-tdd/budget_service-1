@@ -23,7 +23,7 @@ class BudgetService {
       if (budget !== undefined) {
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
-          let daysOfBudget = currentMonth.daysInMonth();
+          let daysOfBudget = budget.getDays();
           totalAmount += startMonthDaysUsed * budget.amount / daysOfBudget;
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
           let endMonthDaysUsed = endDate.date();
@@ -39,12 +39,17 @@ class BudgetService {
 
     return totalAmount;
   }
+
 }
 
 class Budget {
   constructor(yearMonth, amount) {
     this.yearMonth = yearMonth;
     this.amount = amount;
+  }
+
+  getDays() {
+    return dayjs(this.yearMonth, 'YYYYMM').daysInMonth();
   }
 }
 
