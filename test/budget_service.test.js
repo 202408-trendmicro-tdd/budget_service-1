@@ -23,10 +23,9 @@ class BudgetService {
       if (budget !== undefined) {
         let overlappingDays;
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
-          overlappingDays = budget.lastDay().diff(start, 'day') + 1;
-          // overlappingDays = currentMonth.daysInMonth() - startDate.date() + 1;
+          overlappingDays = budget.lastDay().diff(startDate, 'day') + 1;
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
-          overlappingDays = endDate.date();
+          overlappingDays = endDate.diff(budget.firstDay(), 'day') + 1;
         } else {
           overlappingDays = budget.getDays();
         }
@@ -49,6 +48,10 @@ class Budget {
 
   getDays() {
     return this.getYearMonth().daysInMonth();
+  }
+
+  firstDay() {
+    return this.getYearMonth().date(1);
   }
 
   lastDay() {
