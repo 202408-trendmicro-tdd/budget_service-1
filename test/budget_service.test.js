@@ -26,7 +26,7 @@ class BudgetService {
           totalAmount += startMonthDaysUsed * budget.dailyAmount();
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
           let endMonthDaysUsed = endDate.date();
-          totalAmount += endMonthDaysUsed * budget.amount / budget.getDays();
+          totalAmount += endMonthDaysUsed * budget.dailyAmount();
         } else {
           totalAmount += budget.amount;
         }
