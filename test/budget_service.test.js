@@ -22,19 +22,22 @@ class BudgetService {
 
       if (budget !== undefined) {
         let overlappingDays;
+        let overlappingEnd;
+        let overlappingStart;
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
-          let overlappingEnd = budget.lastDay();
-          let overlappingStart = startDate;
-          overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
+          overlappingEnd = budget.lastDay();
+          overlappingStart = startDate;
+          // overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
-          let overlappingEnd = endDate;
-          let overlappingStart = budget.firstDay();
-          overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
+          overlappingEnd = endDate;
+          overlappingStart = budget.firstDay();
+          // overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
         } else {
-          let overlappingEnd = budget.lastDay();
-          let overlappingStart = budget.firstDay();
-          overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
+          overlappingEnd = budget.lastDay();
+          overlappingStart = budget.firstDay();
+          // overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
         }
+        overlappingDays = overlappingEnd.diff(overlappingStart, 'day') + 1;
         totalAmount += overlappingDays * budget.dailyAmount();
       }
 
