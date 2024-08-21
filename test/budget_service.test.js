@@ -27,7 +27,8 @@ class BudgetService {
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
           overlappingDays = endDate.diff(budget.firstDay(), 'day') + 1;
         } else {
-          overlappingDays = budget.getDays();
+          overlappingDays = budget.lastDay().diff(budget.firstDay(), 'day') + 1;
+          // overlappingDays = budget.getDays();
         }
         totalAmount += overlappingDays * budget.dailyAmount();
       }
