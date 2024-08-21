@@ -21,7 +21,7 @@ class BudgetService {
       let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
 
       if (budget !== undefined) {
-        if (currentMonth.isSame(startDate, 'month')) {
+        if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
           totalAmount += (startMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
         } else if (currentMonth.isSame(endDate, 'month')) {
