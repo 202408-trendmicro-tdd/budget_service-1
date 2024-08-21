@@ -24,10 +24,12 @@ class BudgetService {
         let overlappingDays;
         let overlappingEnd;
         let overlappingStart;
-        if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
+        if (budget.yearMonth === startDate.format('YYYYMM')) {
+          // if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
           overlappingEnd = budget.lastDay();
           overlappingStart = startDate;
-        } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
+        } else if (budget.yearMonth === endDate.format('YYYYMM')) {
+          // } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
           overlappingEnd = endDate;
           overlappingStart = budget.firstDay();
         } else {
