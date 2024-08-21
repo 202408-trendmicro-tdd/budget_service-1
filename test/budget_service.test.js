@@ -24,7 +24,6 @@ class BudgetService {
   totalAmount(start, end) {
     const startDate = dayjs(start);
     const endDate = dayjs(end);
-    let totalAmount = 0;
 
     if (endDate.isBefore(startDate)) {
       return 0;
@@ -33,7 +32,6 @@ class BudgetService {
     return budgets.map(budget => budget.overlappingAmount(period))
       .reduce((x, y) => x + y);
   }
-
 }
 
 class Budget {
