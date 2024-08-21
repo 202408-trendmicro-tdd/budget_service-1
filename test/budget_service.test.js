@@ -30,10 +30,8 @@ class BudgetService {
       return 0;
     }
     const period = new Period(startDate, endDate);
-    for (let budget of budgets) {
-      totalAmount += budget.overlappingAmount(period);
-    }
-    return totalAmount;
+    return budgets.map(budget => budget.overlappingAmount(period))
+      .reduce((x, y) => x + y);
   }
 
 }
