@@ -1,5 +1,17 @@
 const dayjs = require('dayjs');
 
+class Period {
+  startDate;
+  endDate;
+
+  constructor(startDate, endDate) {
+    this.startDate = startDate;
+    this.endDate = endDate;
+
+  }
+
+}
+
 class BudgetService {
   totalAmount(start, end) {
     const startDate = dayjs(start);
@@ -32,6 +44,7 @@ class BudgetService {
   }
 
   overlappingDays(budget, startDate, endDate) {
+    const period = new Period(startDate, endDate);
     let overlappingEnd;
     let overlappingStart;
     let e = endDate;
