@@ -22,11 +22,11 @@ class BudgetService {
 
       if (budget !== undefined) {
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
-          let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
-          totalAmount += startMonthDaysUsed * budget.dailyAmount();
+          let overlappingDays = currentMonth.daysInMonth() - startDate.date() + 1;
+          totalAmount += overlappingDays * budget.dailyAmount();
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
-          let endMonthDaysUsed = endDate.date();
-          totalAmount += endMonthDaysUsed * budget.dailyAmount();
+          let overlappingDays = endDate.date();
+          totalAmount += overlappingDays * budget.dailyAmount();
         } else {
           totalAmount += budget.amount;
         }
