@@ -40,8 +40,7 @@ class BudgetService {
       if (budget !== undefined) {
         const period = new Period(startDate, endDate);
         const another = new Period(budget.firstDay(), budget.lastDay());
-        let overlappingDays = period.overlappingDays(another);
-        totalAmount += overlappingDays * budget.dailyAmount();
+        totalAmount += period.overlappingDays(another) * budget.dailyAmount();
       }
 
       currentMonth = currentMonth.add(1, 'month');
