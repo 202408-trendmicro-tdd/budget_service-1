@@ -34,11 +34,11 @@ class BudgetService {
       let budget = budgets.find(budget => budget.yearMonth === startDate.format('YYYYMM'));
       return (day_diff * budget.amount) / days_in_month;
     }
+    const period = new Period(startDate, endDate);
     while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
       let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
 
       if (budget !== undefined) {
-        const period = new Period(startDate, endDate);
         totalAmount += budget.overlappingAmount(period);
       }
 
