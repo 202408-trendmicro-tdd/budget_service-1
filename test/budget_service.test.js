@@ -21,17 +21,18 @@ class BudgetService {
       let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
 
       if (budget !== undefined) {
+        let overlappingDays;
         if (currentMonth.format('YYYYMM') === startDate.format('YYYYMM')) {
-          let overlappingDays = currentMonth.daysInMonth() - startDate.date() + 1;
-          totalAmount += overlappingDays * budget.dailyAmount();
+          overlappingDays = currentMonth.daysInMonth() - startDate.date() + 1;
+          // totalAmount += overlappingDays * budget.dailyAmount();
         } else if (currentMonth.format('YYYYMM') === endDate.format('YYYYMM')) {
-          let overlappingDays = endDate.date();
-          totalAmount += overlappingDays * budget.dailyAmount();
+          overlappingDays = endDate.date();
+          // totalAmount += overlappingDays * budget.dailyAmount();
         } else {
-          let overlappingDays = budget.getDays();
-          totalAmount += overlappingDays * budget.dailyAmount();
-          // totalAmount += budget.amount;
+          overlappingDays = budget.getDays();
+          // totalAmount += overlappingDays * budget.dailyAmount();
         }
+        totalAmount += overlappingDays * budget.dailyAmount();
       }
 
       currentMonth = currentMonth.add(1, 'month');
