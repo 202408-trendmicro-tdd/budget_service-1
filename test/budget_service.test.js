@@ -29,30 +29,11 @@ class BudgetService {
     if (endDate.isBefore(startDate)) {
       return 0;
     }
-
-    let currentMonth = startDate.startOf('month');
-    if (startDate.format('YYYYMM') === endDate.format('YYYYMM')) {
-      let day_diff = endDate.diff(startDate, 'day') + 1;
-      let days_in_month = currentMonth.daysInMonth();
-      let budget = budgets.find(budget => budget.yearMonth === startDate.format('YYYYMM'));
-      return (day_diff * budget.amount) / days_in_month;
-    }
     const period = new Period(startDate, endDate);
     for (let budget of budgets) {
       totalAmount += budget.overlappingAmount(period);
     }
     return totalAmount;
-    // while (currentMonth.isBefore(endDate) || currentMonth.isSame(endDate, 'month')) {
-    //   let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
-    //
-    //   if (budget !== undefined) {
-    //     totalAmount += budget.overlappingAmount(period);
-    //   }
-    //
-    //   currentMonth = currentMonth.add(1, 'month');
-    // }
-    //
-    // return totalAmount;
   }
 
 }
