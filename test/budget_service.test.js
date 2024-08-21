@@ -39,7 +39,7 @@ class BudgetService {
 
       if (budget !== undefined) {
         const period = new Period(startDate, endDate);
-        totalAmount += this.overlappingAmount(period, budget);
+        totalAmount += budget.overlappingAmount(period);
       }
 
       currentMonth = currentMonth.add(1, 'month');
@@ -48,15 +48,16 @@ class BudgetService {
     return totalAmount;
   }
 
-  overlappingAmount(period, budget) {
-    return period.overlappingDays(budget.createPeriod()) * budget.dailyAmount();
-  }
 }
 
 class Budget {
   constructor(yearMonth, amount) {
     this.yearMonth = yearMonth;
     this.amount = amount;
+  }
+
+  overlappingAmount(period) {
+    return period.overlappingDays(this.createPeriod()) * this.dailyAmount();
   }
 
   createPeriod() {
