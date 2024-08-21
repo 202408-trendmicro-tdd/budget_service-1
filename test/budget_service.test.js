@@ -39,7 +39,7 @@ class BudgetService {
 
       if (budget !== undefined) {
         const period = new Period(startDate, endDate);
-        const another = new Period(budget.firstDay(), budget.lastDay());
+        const another = this.createPeriod(budget);
         totalAmount += period.overlappingDays(another) * budget.dailyAmount();
       }
 
@@ -49,6 +49,9 @@ class BudgetService {
     return totalAmount;
   }
 
+  createPeriod(budget) {
+    return new Period(budget.firstDay(), budget.lastDay());
+  }
 }
 
 class Budget {
