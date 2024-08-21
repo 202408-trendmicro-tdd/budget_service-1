@@ -32,7 +32,6 @@ class BudgetService {
   }
 
   overlappingDays(budget, startDate, endDate) {
-    let overlappingDays;
     let overlappingEnd;
     let overlappingStart;
     if (budget.yearMonth === startDate.format('YYYYMM')) {
