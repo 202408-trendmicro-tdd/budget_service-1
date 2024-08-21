@@ -16,19 +16,18 @@ class BudgetService {
       let budget = budgets.find(budget => budget.yearMonth === currentMonth.format('YYYYMM'));
 
       if (budget !== undefined) {
-        let amountOfBudget = budget.amount;
         if (currentMonth.isSame(startDate, 'month') && currentMonth.isSame(endDate, 'month')) {
           let day_diff = endDate.diff(startDate, 'day') + 1;
           let days_in_month = currentMonth.daysInMonth();
-          totalAmount += (day_diff * amountOfBudget) / days_in_month;
+          totalAmount += (day_diff * budget.amount) / days_in_month;
         } else if (currentMonth.isSame(startDate, 'month')) {
           let startMonthDaysUsed = currentMonth.daysInMonth() - startDate.date() + 1;
-          totalAmount += (startMonthDaysUsed * amountOfBudget) / currentMonth.daysInMonth();
+          totalAmount += (startMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
         } else if (currentMonth.isSame(endDate, 'month')) {
           let endMonthDaysUsed = endDate.date();
-          totalAmount += (endMonthDaysUsed * amountOfBudget) / currentMonth.daysInMonth();
+          totalAmount += (endMonthDaysUsed * budget.amount) / currentMonth.daysInMonth();
         } else {
-          totalAmount += amountOfBudget;
+          totalAmount += budget.amount;
         }
       }
 
